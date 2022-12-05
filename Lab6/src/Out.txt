@@ -1,0 +1,4 @@
+3 Audi A8 2017 white 110000 547265 
+1 Ford Mustang 2014 blue 40000 127942 
+0 Lambo Aventador 2021 red 250000 245126 
+2 Shevrolet Camaro 2019 yellow 60000 987123 
