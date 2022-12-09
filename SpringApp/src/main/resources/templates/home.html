@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="display: block">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Model.">
+    <table id="myTable">
+        <tr class="header">
+            <th>ID</th>
+            <th>Car make</th>
+            <th>Car model</th>
+            <th>Car year</th>
+            <th>Expenses</th>
+        </tr>
+        <tr th:each="obj : ${car}">
+            <td th:text="${obj.getId}"/>
+            <td th:text="${obj.getCar_make()}"/>
+            <td th:text="${obj.getCar_model()}"/>
+            <td th:text="${obj.getCar_year()}"/>
+            <td th:text="${obj.getExpenses()}"/>
+            <td>
+                <a th:href="@{/delete/{id}(id=${obj.getId()})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<div style="display: flex">
+    <form action="/add" method="post">
+        <div>
+            <label>Add</label>
+            <input type="text" placeholder="Make" name="car_make" required>
+            <input type="text" placeholder="Model" name="car_model" required>
+            <input type="number" placeholder="Year" name="car_year" required>
+            <input type="number" placeholder="Expenses" name="expenses">
+            <button type="submit">Insert new</button>
+        </div>
+    </form>
+    <form action="/update" method="post">
+        <div>
+            <label>Change</label>
+            <input type="number" placeholder="ID" name="id" required>
+            <input type="text" placeholder="Make" name="car_make" required>
+            <input type="text" placeholder="Model" name="car_model" required>
+            <input type="number" placeholder="Year" name="car_year" required>
+            <input type="number" placeholder="Expenses" name="expenses">
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</html>
